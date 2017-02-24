@@ -1,0 +1,6 @@
+---
+- hosts: job02
+  remote_user: root
+  gather_facts: yes
+  roles:
+    - zabbix_agent

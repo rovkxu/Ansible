@@ -1,0 +1,15 @@
+---
+- name: copy files/zabbix-release_2.4-1+wheezy_all.deb to agent server.
+  copy: src=/etc/ansible/playbooks/zabbix_agent/roles/zabbix_agent/files/zabbix-release_2.4-1+wheezy_all.deb dest=/opt/zabbix-release_2.4-1+wheezy_all.deb
+
+- name: install zabbix agent packages
+  apt: deb=/opt/zabbix-release_2.4-1+wheezy_all.deb
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt: update_cache=yes
+
+- name: Install the package "zabbix-agent"
+  apt: name=zabbix-agent state=present
+
+- name: update zabbix_agent configure file
+  template: src=zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf
